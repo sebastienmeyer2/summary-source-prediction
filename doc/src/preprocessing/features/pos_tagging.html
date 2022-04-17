@@ -1,0 +1,959 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>src.preprocessing.features.pos_tagging API documentation</title>
+<meta name="description" content="Compute features based on Part-of-Speech tagging." />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS_CHTML" integrity="sha256-kZafAc6mZvK3W3v1pHOcUix30OHQN6pU/NO2oFkqZVw=" crossorigin></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>src.preprocessing.features.pos_tagging</code></h1>
+</header>
+<section id="section-intro">
+<p>Compute features based on Part-of-Speech tagging.</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">&#34;&#34;&#34;Compute features based on Part-of-Speech tagging.&#34;&#34;&#34;
+
+
+from typing import List, Optional, Set, Tuple
+
+import re
+import string
+
+from pandas import DataFrame
+
+from nltk import pos_tag
+from nltk.corpus import stopwords as stopwords_collection
+from nltk.stem import PorterStemmer
+
+
+from preprocessing.features.tfidf import create_idf_feat
+
+
+ALL_NLTK_TAGS = [
+    &#34;$&#34;, &#34;&#39;&#39;&#34;, &#34;(&#34;, &#34;)&#34;, &#34;,&#34;, &#34;--&#34;, &#34;.&#34;, &#34;:&#34;, &#34;CC&#34;, &#34;CD&#34;, &#34;DT&#34;, &#34;EX&#34;, &#34;FW&#34;, &#34;IN&#34;, &#34;JJ&#34;, &#34;JJR&#34;,
+    &#34;JJS&#34;, &#34;LS&#34;, &#34;MD&#34;, &#34;NN&#34;, &#34;NNP&#34;, &#34;NNPS&#34;, &#34;NNS&#34;, &#34;PDT&#34;, &#34;POS&#34;, &#34;PRP&#34;, &#34;PRP$&#34;, &#34;RB&#34;, &#34;RBR&#34;, &#34;RBS&#34;,
+    &#34;RP&#34;, &#34;SYM&#34;, &#34;TO&#34;, &#34;UH&#34;, &#34;VB&#34;, &#34;VBD&#34;, &#34;VBG&#34;, &#34;VBN&#34;, &#34;VBP&#34;, &#34;VBZ&#34;, &#34;WDT&#34;, &#34;WP&#34;, &#34;WP$&#34;, &#34;WRB&#34;,
+    &#34;``&#34;
+]
+
+
+def text_to_tagged_tokens(
+    text: str, stopwords: List[str], punct: str, remove_stopwords: bool = True,
+    stemming: bool = True, pos_filtering: bool = True
+) -&gt; List[Tuple[str, str]]:
+    &#34;&#34;&#34;Convert a text to tagged tokens.
+
+    Parameters
+    ----------
+    text : str
+        Text to convert.
+
+    stopwords : list of str
+        Stop words to remove from the **text** if **remove_stopwords** is True.
+
+    punct : str
+        All ponctuation symbols contained in a single string.
+
+    remove_stopwords : bool, default=True
+        If True, will remove the **stopwords** from **text**.
+
+    stemming : bool, default=True
+        If True, will stem the remaining words before tagging.
+
+    pos_filtering : bool, default=True
+        If True, will remove some tags from the **text**.
+
+    Returns
+    -------
+    tagged_tokens : list of tuple of str
+        Initial **text** converted to accepted tags with corresponding words in tuples.
+    &#34;&#34;&#34;
+    # Step 1: Conversion to lower case
+    text = text.lower()
+
+    # Step 2: Punctuation removal
+    text = &#34;&#34;.join(char for char in text if char not in punct)  # preserving intra-word dashes
+    text = re.sub(&#34; +&#34;, &#34; &#34;, text)  # strip extra white space
+    text = text.strip()  # strip leading and trailing white space
+
+    # Step 3: Tokenization
+    tokens = text.split(&#34; &#34;)
+
+    # Step 4: Stopwords removal
+    if remove_stopwords:
+        tokens = [token for token in tokens if token not in stopwords]
+
+    # Step 5: Stemming
+    if stemming:
+        stemmer = PorterStemmer()
+        tokens_stemmed = []
+        for token in tokens:
+            tokens_stemmed.append(stemmer.stem(token))
+        tokens = tokens_stemmed
+
+    # Step 6: Tagging
+    tagged_tokens = pos_tag(tokens)
+
+    # Step 7: Part-of-Speech based filtering
+    if pos_filtering:
+
+        tagged_tokens_keep = []
+        for item in tagged_tokens:
+            if (
+                item[1] == &#34;NN&#34; or
+                item[1] == &#34;NNS&#34; or
+                item[1] == &#34;NNP&#34; or
+                item[1] == &#34;NNPS&#34; or
+                item[1] == &#34;JJ&#34; or
+                item[1] == &#34;JJS&#34; or
+                item[1] == &#34;JJR&#34;
+            ):
+                tagged_tokens_keep.append(item)
+        tagged_tokens = tagged_tokens_keep
+
+    return tagged_tokens
+
+
+def extract_tags(tagged_tokens: List[Tuple[str, str]]) -&gt; str:
+    &#34;&#34;&#34;WIP.&#34;&#34;&#34;
+    tags = []
+
+    for pair in tagged_tokens:
+
+        _, tag = pair
+        tags.append(tag)
+
+    tags = &#34;_&#34;.join(tags)
+
+    return tags
+
+
+def apply_tag_rule(rule: str, df: DataFrame, vip_tag: str, feat_name: str, summary: bool = True):
+    &#34;&#34;&#34;Apply an operation on the dataframe based on tags.
+
+    Parameters
+    ----------
+    rule : str
+        Rule to use, either &#34;count&#34; for the number of found instances, &#34;set&#34; to transform the
+        result into a set or &#34;avg&#34; to compute the average length of found instances.
+
+    df : DataFrame
+        A dataframe containing the corresponding column, either &#34;tags&#34; if **summary** is True,
+        or &#34;d_tags&#34; if **summary** is False.
+
+    vip_tag : str
+        Tag to apply the **rule** to.
+
+    feat_name : str
+        Name of the new feature to append to the dataframe.
+
+    summary : bool, default=True
+        If True, will apply the rule on the &#34;tags&#34; column of the dataframe, otherwise on the
+        &#34;d_tags&#34; column.
+
+    Raises
+    ------
+    ValueError
+        If the corresponding column &#34;summary&#34; or &#34;document&#34; is not present in **df**, depending on
+        the value of **summary**. If the **rule** is not supported.
+    &#34;&#34;&#34;
+    if feat_name not in df.columns:
+
+        # Choose the column to which the rule must be applied
+        col = &#34;summary_tagged&#34; if summary else &#34;document_tagged&#34;
+
+        if col not in df.columns:
+
+            err_msg = f&#34;Column {col} not present in the dataframe.&#34;
+            raise ValueError(err_msg)
+
+        # Apply the rule and put the result in a new column
+        if rule == &#34;count&#34;:
+
+            def count_tag(tagged_tokens: List[Tuple[str, str]], vip_tag: str) -&gt; float:
+
+                cnt = 0.
+                for tagged_token in tagged_tokens:
+                    if tagged_token[1] == vip_tag:
+                        cnt += 1
+
+                return cnt
+
+            df[feat_name] = df[col].apply(lambda x: count_tag(x, vip_tag))
+
+        elif rule == &#34;set&#34;:
+
+            def set_tag(tagged_tokens: List[Tuple[str, str]], vip_tag: str) -&gt; Set[str]:
+
+                ens = set()
+                for tagged_token in tagged_tokens:
+                    if tagged_token[1] == vip_tag:
+                        ens.add(tagged_token[0])
+
+                return ens
+
+            df[feat_name] = df[col].apply(lambda x: set_tag(x, vip_tag))
+
+        elif rule == &#34;avg&#34;:
+
+            def avg_tag(tagged_tokens: List[Tuple[str, str]], vip_tag: str) -&gt; float:
+
+                avg = 0.
+                n = 0
+                for tagged_token in tagged_tokens:
+                    if tagged_token[1] == vip_tag:
+                        avg += len(tagged_token[0])
+                        n += 1
+                avg = avg / n if n &gt; 0 else 0.
+
+                return avg
+
+            df[feat_name] = df[col].apply(lambda x: avg_tag(x, vip_tag))
+
+        else:
+
+            err_msg = f&#34;Unknown tagging rule {rule}.&#34;
+            raise ValueError(err_msg)
+
+
+def create_tagging_feat(
+    seed: int, train_df: DataFrame, test_df: Optional[DataFrame] = None,
+    tag_feat: Optional[List[str]] = None, more_docs: Optional[DataFrame] = None,
+    delta: float = 0.1, b: float = 0.5, k_1: float = 1., svd_components: int = 1
+):
+    &#34;&#34;&#34;Auxiliary function to create tagging features.
+
+    Parameters
+    ----------
+    seed : int
+        Seed to use everywhere for reproducibility.
+
+    train_df : DataFrame
+        Training dataframe containing &#34;summary&#34; and &#34;document&#34; columns.
+
+    test_df : optional DataFrame, default=None
+        Test dataframe containing &#34;summary&#34; and &#34;document&#34; columns.
+
+    tag_feat : optional list of str, default=None
+        List of all tagging features to compute. The name of a tagging feature must be of the form
+        &#34;A_B&#34;. A is a tag from all available tags in `nltk` or &#34;tags&#34;. B is the type of feature we
+        want, it can be &#34;count&#34; for the number of instances, &#34;avg&#34; for the average length of
+        instances, &#34;overlap&#34; for the number of instances both found in the summary and the original
+        document, &#34;ratio&#34; for the ratio between the number of instances found in the summary and
+        the number of instances found in the document or &#34;C_D&#34; where C and D are parameters for idf
+        features.
+
+    more_docs : optional DataFrame, default=None
+        Additional dataframe containing a &#34;document&#34; column to use for idf computation.
+
+    delta : float, default=0.1
+        Parameter value for &#34;d&#34; composition in tf-idf.
+
+    b : float, default=0.5
+        Parameter value for &#34;p&#34; composition in tf-idf.
+
+    k_1 : float, default=1.0
+        Parameter value for &#34;k&#34; composition in tf-idf.
+
+    svd_components : int, default=1
+        Number of components for the truncated SVD component analysis. This number must be smaller
+        than the number of features in the counter.
+
+    Raises
+    ------
+    ValueError
+        If one of the features is not supported. If one of the tags is not in the available
+        nltk tags.
+    &#34;&#34;&#34;
+    if tag_feat is None or len(tag_feat) == 0:
+        return
+
+    print(&#34;\nComputing tagging features...&#34;)
+
+    init_feat = set(train_df.columns)
+    new_feat = set()
+
+    dfs = [train_df]
+    if test_df is not None:
+        dfs.append(test_df)
+
+    stopwords = stopwords_collection.words(&#34;english&#34;)
+    punct = string.punctuation.replace(&#34;-&#34;, &#34;&#34;)
+    vip_tag = &#34;&#34;
+
+    for feat_name in tag_feat:
+
+        # Extract feature options
+        feat_split = feat_name.split(&#34;_&#34;)
+        vip_tag = feat_split[0]
+        feat_type = &#34;_&#34;.join(feat_split[1:])
+
+        if vip_tag not in ALL_NLTK_TAGS + [&#34;tags&#34;]:
+
+            err_msg = f&#34;Unsupported nltk tag {vip_tag}.&#34;
+            raise ValueError(err_msg)
+
+        # Compute tags of summaries and eventually of documents
+        for df in dfs:
+
+            if &#34;summary_tagged&#34; not in df.columns:
+
+                df[&#34;summary_tagged&#34;] = df[&#34;summary&#34;].apply(
+                    lambda x: text_to_tagged_tokens(
+                        x, stopwords, punct, remove_stopwords=False, stemming=False,
+                        pos_filtering=False,
+                    )
+                )
+
+            if (
+                (feat_type in {&#34;ratio&#34;, &#34;overlap&#34;} or vip_tag == &#34;tags&#34;) and
+                &#34;document_tagged&#34; not in df.columns
+            ):
+
+                df[&#34;document_tagged&#34;] = df[&#34;document&#34;].apply(
+                    lambda x: text_to_tagged_tokens(
+                        x, stopwords, punct, remove_stopwords=False, stemming=False,
+                        pos_filtering=False
+                    )
+                )
+
+        if (
+            vip_tag == &#34;tags&#34; and
+            (more_docs is not None and &#34;document_tagged&#34; not in more_docs.columns)
+        ):
+
+            more_docs[&#34;document_tagged&#34;] = more_docs[&#34;document&#34;].apply(
+                lambda x: text_to_tagged_tokens(
+                    x, stopwords, punct, remove_stopwords=False, stemming=False,
+                    pos_filtering=False
+                )
+            )
+
+        # Compute tagging feature
+        if vip_tag == &#34;tags&#34;:
+
+            suffix = &#34;_&#34; + vip_tag
+            max_features = 100
+            svd_components = 25
+
+            train_df[&#34;summary_tags&#34;] = train_df[&#34;summary_tagged&#34;].apply(extract_tags)
+            train_df[&#34;document_tags&#34;] = train_df[&#34;document_tagged&#34;].apply(extract_tags)
+            if test_df is not None:
+                test_df[&#34;summary_tags&#34;] = test_df[&#34;summary_tagged&#34;].apply(extract_tags)
+                test_df[&#34;document_tags&#34;] = test_df[&#34;document_tagged&#34;].apply(extract_tags)
+            if more_docs is not None:
+                more_docs[&#34;document_tags&#34;] = more_docs[&#34;document_tagged&#34;].apply(extract_tags)
+
+            create_idf_feat(
+                seed, train_df, test_df=test_df, more_docs=more_docs, idf_feat=[feat_type],
+                max_features=max_features, delta=delta, b=b, k_1=k_1,
+                svd_components=svd_components, suffix=suffix
+            )
+
+            if feat_type == &#34;count&#34;:
+                new_cols = [feat_name + suffix + f&#34;_PCA_{i}&#34; for i in range(1, svd_components + 1)]
+            elif feat_type == &#34;lda&#34;:
+                new_cols = [feat_name + suffix + f&#34;_{i}&#34; for i in range(3)]
+            elif feat_type == &#34;idf&#34;:
+                new_cols = [feat_name + suffix + f&#34;_PCA_{i}&#34; for i in range(1, svd_components + 1)]
+            elif feat_type == &#34;cos&#34;:
+                new_cols = [feat_name + suffix]
+            else:
+                new_cols = []
+
+            new_feat.union(set(new_cols))
+
+        else:
+
+            for df in dfs:
+
+                if feat_type == &#34;count&#34;:
+
+                    apply_tag_rule(&#34;count&#34;, df, vip_tag, feat_name)
+
+                elif feat_type == &#34;avg&#34;:
+
+                    apply_tag_rule(&#34;avg&#34;, df, vip_tag, feat_name)
+
+                elif feat_type == &#34;overlap&#34;:
+
+                    s_feat_name = vip_tag + &#34;_set&#34;
+                    d_feat_name = &#34;d_&#34; + vip_tag + &#34;_set&#34;
+
+                    apply_tag_rule(&#34;set&#34;, df, vip_tag, s_feat_name)
+                    apply_tag_rule(&#34;set&#34;, df, vip_tag, d_feat_name, summary=False)
+                    df[feat_name] = [
+                        len(x[0] &amp; x[1]) for x in df[[s_feat_name, d_feat_name]].values
+                    ]
+
+                elif feat_type == &#34;ratio&#34;:
+
+                    s_feat_name = vip_tag + &#34;_count&#34;
+                    d_feat_name = &#34;d_&#34; + vip_tag + &#34;_count&#34;
+
+                    apply_tag_rule(&#34;count&#34;, df, vip_tag, s_feat_name)
+                    apply_tag_rule(&#34;count&#34;, df, vip_tag, d_feat_name, summary=False)
+                    df[feat_name] = df[s_feat_name] / df[d_feat_name]
+
+                else:
+
+                    err_msg = f&#34;From tagging feature {feat_name},&#34;
+                    err_msg += f&#34; unsupported feature type {feat_type}.&#34;
+                    raise ValueError(err_msg)
+
+            new_feat.add(feat_name)
+
+    # Drop intermediary features
+    inter_feat = set(train_df.columns).difference(init_feat.union(new_feat))
+
+    train_df.drop(columns=inter_feat, inplace=True)
+    if test_df is not None:
+        test_df.drop(columns=inter_feat, inplace=True)
+
+    print(f&#34;Number of tagging features: {len(new_feat)}.&#34;)</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="src.preprocessing.features.pos_tagging.apply_tag_rule"><code class="name flex">
+<span>def <span class="ident">apply_tag_rule</span></span>(<span>rule: str, df: pandas.core.frame.DataFrame, vip_tag: str, feat_name: str, summary: bool = True)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Apply an operation on the dataframe based on tags.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>rule</code></strong> :&ensp;<code>str</code></dt>
+<dd>Rule to use, either "count" for the number of found instances, "set" to transform the
+result into a set or "avg" to compute the average length of found instances.</dd>
+<dt><strong><code>df</code></strong> :&ensp;<code>DataFrame</code></dt>
+<dd>A dataframe containing the corresponding column, either "tags" if <strong>summary</strong> is True,
+or "d_tags" if <strong>summary</strong> is False.</dd>
+<dt><strong><code>vip_tag</code></strong> :&ensp;<code>str</code></dt>
+<dd>Tag to apply the <strong>rule</strong> to.</dd>
+<dt><strong><code>feat_name</code></strong> :&ensp;<code>str</code></dt>
+<dd>Name of the new feature to append to the dataframe.</dd>
+<dt><strong><code>summary</code></strong> :&ensp;<code>bool</code>, default=<code>True</code></dt>
+<dd>If True, will apply the rule on the "tags" column of the dataframe, otherwise on the
+"d_tags" column.</dd>
+</dl>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>ValueError</code></dt>
+<dd>If the corresponding column "summary" or "document" is not present in <strong>df</strong>, depending on
+the value of <strong>summary</strong>. If the <strong>rule</strong> is not supported.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def apply_tag_rule(rule: str, df: DataFrame, vip_tag: str, feat_name: str, summary: bool = True):
+    &#34;&#34;&#34;Apply an operation on the dataframe based on tags.
+
+    Parameters
+    ----------
+    rule : str
+        Rule to use, either &#34;count&#34; for the number of found instances, &#34;set&#34; to transform the
+        result into a set or &#34;avg&#34; to compute the average length of found instances.
+
+    df : DataFrame
+        A dataframe containing the corresponding column, either &#34;tags&#34; if **summary** is True,
+        or &#34;d_tags&#34; if **summary** is False.
+
+    vip_tag : str
+        Tag to apply the **rule** to.
+
+    feat_name : str
+        Name of the new feature to append to the dataframe.
+
+    summary : bool, default=True
+        If True, will apply the rule on the &#34;tags&#34; column of the dataframe, otherwise on the
+        &#34;d_tags&#34; column.
+
+    Raises
+    ------
+    ValueError
+        If the corresponding column &#34;summary&#34; or &#34;document&#34; is not present in **df**, depending on
+        the value of **summary**. If the **rule** is not supported.
+    &#34;&#34;&#34;
+    if feat_name not in df.columns:
+
+        # Choose the column to which the rule must be applied
+        col = &#34;summary_tagged&#34; if summary else &#34;document_tagged&#34;
+
+        if col not in df.columns:
+
+            err_msg = f&#34;Column {col} not present in the dataframe.&#34;
+            raise ValueError(err_msg)
+
+        # Apply the rule and put the result in a new column
+        if rule == &#34;count&#34;:
+
+            def count_tag(tagged_tokens: List[Tuple[str, str]], vip_tag: str) -&gt; float:
+
+                cnt = 0.
+                for tagged_token in tagged_tokens:
+                    if tagged_token[1] == vip_tag:
+                        cnt += 1
+
+                return cnt
+
+            df[feat_name] = df[col].apply(lambda x: count_tag(x, vip_tag))
+
+        elif rule == &#34;set&#34;:
+
+            def set_tag(tagged_tokens: List[Tuple[str, str]], vip_tag: str) -&gt; Set[str]:
+
+                ens = set()
+                for tagged_token in tagged_tokens:
+                    if tagged_token[1] == vip_tag:
+                        ens.add(tagged_token[0])
+
+                return ens
+
+            df[feat_name] = df[col].apply(lambda x: set_tag(x, vip_tag))
+
+        elif rule == &#34;avg&#34;:
+
+            def avg_tag(tagged_tokens: List[Tuple[str, str]], vip_tag: str) -&gt; float:
+
+                avg = 0.
+                n = 0
+                for tagged_token in tagged_tokens:
+                    if tagged_token[1] == vip_tag:
+                        avg += len(tagged_token[0])
+                        n += 1
+                avg = avg / n if n &gt; 0 else 0.
+
+                return avg
+
+            df[feat_name] = df[col].apply(lambda x: avg_tag(x, vip_tag))
+
+        else:
+
+            err_msg = f&#34;Unknown tagging rule {rule}.&#34;
+            raise ValueError(err_msg)</code></pre>
+</details>
+</dd>
+<dt id="src.preprocessing.features.pos_tagging.create_tagging_feat"><code class="name flex">
+<span>def <span class="ident">create_tagging_feat</span></span>(<span>seed: int, train_df: pandas.core.frame.DataFrame, test_df: Optional[pandas.core.frame.DataFrame] = None, tag_feat: Optional[List[str]] = None, more_docs: Optional[pandas.core.frame.DataFrame] = None, delta: float = 0.1, b: float = 0.5, k_1: float = 1.0, svd_components: int = 1)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Auxiliary function to create tagging features.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>seed</code></strong> :&ensp;<code>int</code></dt>
+<dd>Seed to use everywhere for reproducibility.</dd>
+<dt><strong><code>train_df</code></strong> :&ensp;<code>DataFrame</code></dt>
+<dd>Training dataframe containing "summary" and "document" columns.</dd>
+<dt><strong><code>test_df</code></strong> :&ensp;<code>optional DataFrame</code>, default=<code>None</code></dt>
+<dd>Test dataframe containing "summary" and "document" columns.</dd>
+<dt><strong><code>tag_feat</code></strong> :&ensp;<code>optional list</code> of <code>str</code>, default=<code>None</code></dt>
+<dd>List of all tagging features to compute. The name of a tagging feature must be of the form
+"A_B". A is a tag from all available tags in <code>nltk</code> or "tags". B is the type of feature we
+want, it can be "count" for the number of instances, "avg" for the average length of
+instances, "overlap" for the number of instances both found in the summary and the original
+document, "ratio" for the ratio between the number of instances found in the summary and
+the number of instances found in the document or "C_D" where C and D are parameters for idf
+features.</dd>
+<dt><strong><code>more_docs</code></strong> :&ensp;<code>optional DataFrame</code>, default=<code>None</code></dt>
+<dd>Additional dataframe containing a "document" column to use for idf computation.</dd>
+<dt><strong><code>delta</code></strong> :&ensp;<code>float</code>, default=<code>0.1</code></dt>
+<dd>Parameter value for "d" composition in tf-idf.</dd>
+<dt><strong><code>b</code></strong> :&ensp;<code>float</code>, default=<code>0.5</code></dt>
+<dd>Parameter value for "p" composition in tf-idf.</dd>
+<dt><strong><code>k_1</code></strong> :&ensp;<code>float</code>, default=<code>1.0</code></dt>
+<dd>Parameter value for "k" composition in tf-idf.</dd>
+<dt><strong><code>svd_components</code></strong> :&ensp;<code>int</code>, default=<code>1</code></dt>
+<dd>Number of components for the truncated SVD component analysis. This number must be smaller
+than the number of features in the counter.</dd>
+</dl>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>ValueError</code></dt>
+<dd>If one of the features is not supported. If one of the tags is not in the available
+nltk tags.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def create_tagging_feat(
+    seed: int, train_df: DataFrame, test_df: Optional[DataFrame] = None,
+    tag_feat: Optional[List[str]] = None, more_docs: Optional[DataFrame] = None,
+    delta: float = 0.1, b: float = 0.5, k_1: float = 1., svd_components: int = 1
+):
+    &#34;&#34;&#34;Auxiliary function to create tagging features.
+
+    Parameters
+    ----------
+    seed : int
+        Seed to use everywhere for reproducibility.
+
+    train_df : DataFrame
+        Training dataframe containing &#34;summary&#34; and &#34;document&#34; columns.
+
+    test_df : optional DataFrame, default=None
+        Test dataframe containing &#34;summary&#34; and &#34;document&#34; columns.
+
+    tag_feat : optional list of str, default=None
+        List of all tagging features to compute. The name of a tagging feature must be of the form
+        &#34;A_B&#34;. A is a tag from all available tags in `nltk` or &#34;tags&#34;. B is the type of feature we
+        want, it can be &#34;count&#34; for the number of instances, &#34;avg&#34; for the average length of
+        instances, &#34;overlap&#34; for the number of instances both found in the summary and the original
+        document, &#34;ratio&#34; for the ratio between the number of instances found in the summary and
+        the number of instances found in the document or &#34;C_D&#34; where C and D are parameters for idf
+        features.
+
+    more_docs : optional DataFrame, default=None
+        Additional dataframe containing a &#34;document&#34; column to use for idf computation.
+
+    delta : float, default=0.1
+        Parameter value for &#34;d&#34; composition in tf-idf.
+
+    b : float, default=0.5
+        Parameter value for &#34;p&#34; composition in tf-idf.
+
+    k_1 : float, default=1.0
+        Parameter value for &#34;k&#34; composition in tf-idf.
+
+    svd_components : int, default=1
+        Number of components for the truncated SVD component analysis. This number must be smaller
+        than the number of features in the counter.
+
+    Raises
+    ------
+    ValueError
+        If one of the features is not supported. If one of the tags is not in the available
+        nltk tags.
+    &#34;&#34;&#34;
+    if tag_feat is None or len(tag_feat) == 0:
+        return
+
+    print(&#34;\nComputing tagging features...&#34;)
+
+    init_feat = set(train_df.columns)
+    new_feat = set()
+
+    dfs = [train_df]
+    if test_df is not None:
+        dfs.append(test_df)
+
+    stopwords = stopwords_collection.words(&#34;english&#34;)
+    punct = string.punctuation.replace(&#34;-&#34;, &#34;&#34;)
+    vip_tag = &#34;&#34;
+
+    for feat_name in tag_feat:
+
+        # Extract feature options
+        feat_split = feat_name.split(&#34;_&#34;)
+        vip_tag = feat_split[0]
+        feat_type = &#34;_&#34;.join(feat_split[1:])
+
+        if vip_tag not in ALL_NLTK_TAGS + [&#34;tags&#34;]:
+
+            err_msg = f&#34;Unsupported nltk tag {vip_tag}.&#34;
+            raise ValueError(err_msg)
+
+        # Compute tags of summaries and eventually of documents
+        for df in dfs:
+
+            if &#34;summary_tagged&#34; not in df.columns:
+
+                df[&#34;summary_tagged&#34;] = df[&#34;summary&#34;].apply(
+                    lambda x: text_to_tagged_tokens(
+                        x, stopwords, punct, remove_stopwords=False, stemming=False,
+                        pos_filtering=False,
+                    )
+                )
+
+            if (
+                (feat_type in {&#34;ratio&#34;, &#34;overlap&#34;} or vip_tag == &#34;tags&#34;) and
+                &#34;document_tagged&#34; not in df.columns
+            ):
+
+                df[&#34;document_tagged&#34;] = df[&#34;document&#34;].apply(
+                    lambda x: text_to_tagged_tokens(
+                        x, stopwords, punct, remove_stopwords=False, stemming=False,
+                        pos_filtering=False
+                    )
+                )
+
+        if (
+            vip_tag == &#34;tags&#34; and
+            (more_docs is not None and &#34;document_tagged&#34; not in more_docs.columns)
+        ):
+
+            more_docs[&#34;document_tagged&#34;] = more_docs[&#34;document&#34;].apply(
+                lambda x: text_to_tagged_tokens(
+                    x, stopwords, punct, remove_stopwords=False, stemming=False,
+                    pos_filtering=False
+                )
+            )
+
+        # Compute tagging feature
+        if vip_tag == &#34;tags&#34;:
+
+            suffix = &#34;_&#34; + vip_tag
+            max_features = 100
+            svd_components = 25
+
+            train_df[&#34;summary_tags&#34;] = train_df[&#34;summary_tagged&#34;].apply(extract_tags)
+            train_df[&#34;document_tags&#34;] = train_df[&#34;document_tagged&#34;].apply(extract_tags)
+            if test_df is not None:
+                test_df[&#34;summary_tags&#34;] = test_df[&#34;summary_tagged&#34;].apply(extract_tags)
+                test_df[&#34;document_tags&#34;] = test_df[&#34;document_tagged&#34;].apply(extract_tags)
+            if more_docs is not None:
+                more_docs[&#34;document_tags&#34;] = more_docs[&#34;document_tagged&#34;].apply(extract_tags)
+
+            create_idf_feat(
+                seed, train_df, test_df=test_df, more_docs=more_docs, idf_feat=[feat_type],
+                max_features=max_features, delta=delta, b=b, k_1=k_1,
+                svd_components=svd_components, suffix=suffix
+            )
+
+            if feat_type == &#34;count&#34;:
+                new_cols = [feat_name + suffix + f&#34;_PCA_{i}&#34; for i in range(1, svd_components + 1)]
+            elif feat_type == &#34;lda&#34;:
+                new_cols = [feat_name + suffix + f&#34;_{i}&#34; for i in range(3)]
+            elif feat_type == &#34;idf&#34;:
+                new_cols = [feat_name + suffix + f&#34;_PCA_{i}&#34; for i in range(1, svd_components + 1)]
+            elif feat_type == &#34;cos&#34;:
+                new_cols = [feat_name + suffix]
+            else:
+                new_cols = []
+
+            new_feat.union(set(new_cols))
+
+        else:
+
+            for df in dfs:
+
+                if feat_type == &#34;count&#34;:
+
+                    apply_tag_rule(&#34;count&#34;, df, vip_tag, feat_name)
+
+                elif feat_type == &#34;avg&#34;:
+
+                    apply_tag_rule(&#34;avg&#34;, df, vip_tag, feat_name)
+
+                elif feat_type == &#34;overlap&#34;:
+
+                    s_feat_name = vip_tag + &#34;_set&#34;
+                    d_feat_name = &#34;d_&#34; + vip_tag + &#34;_set&#34;
+
+                    apply_tag_rule(&#34;set&#34;, df, vip_tag, s_feat_name)
+                    apply_tag_rule(&#34;set&#34;, df, vip_tag, d_feat_name, summary=False)
+                    df[feat_name] = [
+                        len(x[0] &amp; x[1]) for x in df[[s_feat_name, d_feat_name]].values
+                    ]
+
+                elif feat_type == &#34;ratio&#34;:
+
+                    s_feat_name = vip_tag + &#34;_count&#34;
+                    d_feat_name = &#34;d_&#34; + vip_tag + &#34;_count&#34;
+
+                    apply_tag_rule(&#34;count&#34;, df, vip_tag, s_feat_name)
+                    apply_tag_rule(&#34;count&#34;, df, vip_tag, d_feat_name, summary=False)
+                    df[feat_name] = df[s_feat_name] / df[d_feat_name]
+
+                else:
+
+                    err_msg = f&#34;From tagging feature {feat_name},&#34;
+                    err_msg += f&#34; unsupported feature type {feat_type}.&#34;
+                    raise ValueError(err_msg)
+
+            new_feat.add(feat_name)
+
+    # Drop intermediary features
+    inter_feat = set(train_df.columns).difference(init_feat.union(new_feat))
+
+    train_df.drop(columns=inter_feat, inplace=True)
+    if test_df is not None:
+        test_df.drop(columns=inter_feat, inplace=True)
+
+    print(f&#34;Number of tagging features: {len(new_feat)}.&#34;)</code></pre>
+</details>
+</dd>
+<dt id="src.preprocessing.features.pos_tagging.extract_tags"><code class="name flex">
+<span>def <span class="ident">extract_tags</span></span>(<span>tagged_tokens: List[Tuple[str, str]]) ‑> str</span>
+</code></dt>
+<dd>
+<div class="desc"><p>WIP.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def extract_tags(tagged_tokens: List[Tuple[str, str]]) -&gt; str:
+    &#34;&#34;&#34;WIP.&#34;&#34;&#34;
+    tags = []
+
+    for pair in tagged_tokens:
+
+        _, tag = pair
+        tags.append(tag)
+
+    tags = &#34;_&#34;.join(tags)
+
+    return tags</code></pre>
+</details>
+</dd>
+<dt id="src.preprocessing.features.pos_tagging.text_to_tagged_tokens"><code class="name flex">
+<span>def <span class="ident">text_to_tagged_tokens</span></span>(<span>text: str, stopwords: List[str], punct: str, remove_stopwords: bool = True, stemming: bool = True, pos_filtering: bool = True) ‑> List[Tuple[str, str]]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Convert a text to tagged tokens.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>text</code></strong> :&ensp;<code>str</code></dt>
+<dd>Text to convert.</dd>
+<dt><strong><code>stopwords</code></strong> :&ensp;<code>list</code> of <code>str</code></dt>
+<dd>Stop words to remove from the <strong>text</strong> if <strong>remove_stopwords</strong> is True.</dd>
+<dt><strong><code>punct</code></strong> :&ensp;<code>str</code></dt>
+<dd>All ponctuation symbols contained in a single string.</dd>
+<dt><strong><code>remove_stopwords</code></strong> :&ensp;<code>bool</code>, default=<code>True</code></dt>
+<dd>If True, will remove the <strong>stopwords</strong> from <strong>text</strong>.</dd>
+<dt><strong><code>stemming</code></strong> :&ensp;<code>bool</code>, default=<code>True</code></dt>
+<dd>If True, will stem the remaining words before tagging.</dd>
+<dt><strong><code>pos_filtering</code></strong> :&ensp;<code>bool</code>, default=<code>True</code></dt>
+<dd>If True, will remove some tags from the <strong>text</strong>.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>tagged_tokens</code></strong> :&ensp;<code>list</code> of <code>tuple</code> of <code>str</code></dt>
+<dd>Initial <strong>text</strong> converted to accepted tags with corresponding words in tuples.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def text_to_tagged_tokens(
+    text: str, stopwords: List[str], punct: str, remove_stopwords: bool = True,
+    stemming: bool = True, pos_filtering: bool = True
+) -&gt; List[Tuple[str, str]]:
+    &#34;&#34;&#34;Convert a text to tagged tokens.
+
+    Parameters
+    ----------
+    text : str
+        Text to convert.
+
+    stopwords : list of str
+        Stop words to remove from the **text** if **remove_stopwords** is True.
+
+    punct : str
+        All ponctuation symbols contained in a single string.
+
+    remove_stopwords : bool, default=True
+        If True, will remove the **stopwords** from **text**.
+
+    stemming : bool, default=True
+        If True, will stem the remaining words before tagging.
+
+    pos_filtering : bool, default=True
+        If True, will remove some tags from the **text**.
+
+    Returns
+    -------
+    tagged_tokens : list of tuple of str
+        Initial **text** converted to accepted tags with corresponding words in tuples.
+    &#34;&#34;&#34;
+    # Step 1: Conversion to lower case
+    text = text.lower()
+
+    # Step 2: Punctuation removal
+    text = &#34;&#34;.join(char for char in text if char not in punct)  # preserving intra-word dashes
+    text = re.sub(&#34; +&#34;, &#34; &#34;, text)  # strip extra white space
+    text = text.strip()  # strip leading and trailing white space
+
+    # Step 3: Tokenization
+    tokens = text.split(&#34; &#34;)
+
+    # Step 4: Stopwords removal
+    if remove_stopwords:
+        tokens = [token for token in tokens if token not in stopwords]
+
+    # Step 5: Stemming
+    if stemming:
+        stemmer = PorterStemmer()
+        tokens_stemmed = []
+        for token in tokens:
+            tokens_stemmed.append(stemmer.stem(token))
+        tokens = tokens_stemmed
+
+    # Step 6: Tagging
+    tagged_tokens = pos_tag(tokens)
+
+    # Step 7: Part-of-Speech based filtering
+    if pos_filtering:
+
+        tagged_tokens_keep = []
+        for item in tagged_tokens:
+            if (
+                item[1] == &#34;NN&#34; or
+                item[1] == &#34;NNS&#34; or
+                item[1] == &#34;NNP&#34; or
+                item[1] == &#34;NNPS&#34; or
+                item[1] == &#34;JJ&#34; or
+                item[1] == &#34;JJS&#34; or
+                item[1] == &#34;JJR&#34;
+            ):
+                tagged_tokens_keep.append(item)
+        tagged_tokens = tagged_tokens_keep
+
+    return tagged_tokens</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="src.preprocessing.features" href="index.html">src.preprocessing.features</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="src.preprocessing.features.pos_tagging.apply_tag_rule" href="#src.preprocessing.features.pos_tagging.apply_tag_rule">apply_tag_rule</a></code></li>
+<li><code><a title="src.preprocessing.features.pos_tagging.create_tagging_feat" href="#src.preprocessing.features.pos_tagging.create_tagging_feat">create_tagging_feat</a></code></li>
+<li><code><a title="src.preprocessing.features.pos_tagging.extract_tags" href="#src.preprocessing.features.pos_tagging.extract_tags">extract_tags</a></code></li>
+<li><code><a title="src.preprocessing.features.pos_tagging.text_to_tagged_tokens" href="#src.preprocessing.features.pos_tagging.text_to_tagged_tokens">text_to_tagged_tokens</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,948 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>src.data_preparation API documentation</title>
+<meta name="description" content="Main function to create and save features." />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS_CHTML" integrity="sha256-kZafAc6mZvK3W3v1pHOcUix30OHQN6pU/NO2oFkqZVw=" crossorigin></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>src.data_preparation</code></h1>
+</header>
+<section id="section-intro">
+<p>Main function to create and save features.</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">&#34;&#34;&#34;Main function to create and save features.&#34;&#34;&#34;
+
+
+import argparse
+
+from typing import List, Optional, Tuple
+
+import warnings
+
+import pandas as pd
+from pandas import DataFrame
+
+from sklearn.preprocessing import MinMaxScaler, StandardScaler
+
+
+from preprocessing.reader import check_features_names
+from preprocessing.features.embeddings import create_embed_feat
+from preprocessing.features.gltr import create_gltr_feat
+from preprocessing.features.polynomial import create_poly_feat
+from preprocessing.features.manual_regex import create_regex_feat
+from preprocessing.features.pos_tagging import create_tagging_feat
+from preprocessing.features.tfidf import create_idf_feat
+from preprocessing.reduction.droping import drop_corr_feat, drop_list_feat
+from preprocessing.reduction.pca import perform_pca
+
+from utils.args_fmt import float_zero_one
+
+
+warnings.simplefilter(action=&#34;ignore&#34;, category=pd.errors.PerformanceWarning)
+
+
+def create_features(
+    seed: int = 42,
+    regex_feat: Optional[List[str]] = None,
+    idf_feat: Optional[List[str]] = None,
+    delta: float = 0.1,
+    b: float = 0.5,
+    k_1: float = 1.,
+    svd_components: int = 1,
+    tag_feat: Optional[List[str]] = None,
+    gltr_feat: Optional[List[str]] = None,
+    embed_feat: Optional[List[str]] = None,
+    fixed_poly_feat: Optional[List[str]] = None,
+    poly_feat: Optional[List[str]] = None,
+    all_poly_feat: bool = False,
+    poly_degree: int = 2,
+    excl_feat: Optional[List[str]] = None,
+    corr_threshold: float = 1.,
+    rescale_data: bool = True,
+    scaling_method: str = &#34;standard&#34;,
+    pca_ratio: float = 1.,
+    save_data: bool = True,
+    file_suffix: str = &#34;final&#34;
+) -&gt; Tuple[DataFrame, ...]:
+    &#34;&#34;&#34;Retrieve local data files and perform preprocessing operations.
+
+    Parameters
+    ----------
+    seed : int, default=42
+        Seed to use everywhere for reproducibility.
+
+    regex_feat : optional list of str, default=None
+        List of all regex features to compute. The name of a regex feature should be of the form
+        &#34;A_B&#34;. A is the name of the regex expression, for example &#34;upper_word&#34;. B is the type of
+        feature we want, it can be &#34;count&#34; for the number of instances, &#34;avg&#34; for the average
+        length of instances, &#34;overlap&#34; for the number of instances both found in the summary and
+        the original document or &#34;ratio&#34; for the ratio between the number of instances found in the
+        summary and the number of instances found in the document.
+
+    idf_feat : optional list of str, default=None
+        List of all tf-idf features names to compute. The name of an idf feature is expected to be
+        of the form &#34;A_B&#34;. A is a sequence of characters for the composition performed in
+        `src.preprocessing.features.tfidf.idf_composition()`. B is the type of feature we want, it
+        can be &#34;count&#34; for the term frequencies, &#34;lda&#34; for the latent dirichlet allocation, &#34;idf&#34;
+        for idf features after a PCA transformation that keeps **svd_components** components from
+        the initial counter features or &#34;cos&#34; for the cosine similarity between the summary and the
+        original document.
+
+    delta : float, default=0.1
+        Parameter value for &#34;d&#34; composition in tf-idf.
+
+    b : float, default=0.5
+        Parameter value for &#34;p&#34; composition in tf-idf.
+
+    k_1 : float, default=1.0
+        Parameter value for &#34;k&#34; composition in tf-idf.
+
+    svd_components : int, default=1
+        Number of components for the truncated SVD component analysis in tf-idf.
+
+    tag_feat : optional list of str, default=None
+        List of all tagging features to compute. The name of a tagging feature must be of the form
+        &#34;A_B&#34;. A is a tag from all available tags in `nltk`. B is the type of feature we want, it
+        can be &#34;count&#34; for the number of instances, &#34;avg&#34; for the average length of instances,
+        &#34;overlap&#34; for the number of instances both found in the summary and the original document
+        or &#34;ratio&#34; for the ratio between the number of instances found in the summary and the
+        number of instances found in the document.
+
+    gltr_feat : optional list of str, default=None
+        List of all GLTR features to compute. The name of a GLTR feature should be of the form
+        &#34;A_B&#34;. A is the name of a topk value computed by GLTR, it can be &#34;count&#34; or &#34;frac&#34;. B is
+        the number of bins to compute the feature.
+
+    embed_feat : optional list of str, default=None
+        List of all embed features to compute. The name of a embed feature should be of the form
+        &#34;A&#34;. A is the name of an embedding from &#34;glove&#34; and &#34;google&#34;, or if any other name, it
+        will be trained.
+
+    fixed_poly_feat : optional list of str, default=None
+        List of specific polynomial features. A fixed polynomial feature must be of the form
+        &#34;A B C&#34;. A, B and C can be features or powers of features, and their product will be
+        computed.
+
+    poly_feat : optional list of str, default=None
+        List of polynomial features to compute of which interaction terms will be computed.
+
+    all_poly_feat : bool, default=False
+        If True, will use all the computed features for polynomial interaction. Use with caution.
+
+    poly_degree : int, default=2
+        Define the degree until which products and powers of features are computed. If 1 or less,
+        there will be no polynomial features.
+
+    excl_feat : optional list of str, default=None
+        List of features names to drop.
+
+    corr_threshold : float, default=1.0
+        Correlation threshold to select features.
+
+    rescale_data : bool, default=True
+        If True, will rescale all features with zero mean and unit variance.
+
+    scaling_method : str, default=&#34;standard&#34;
+        If &#34;standard&#34;, features are rescaled with zero mean and unit variance. If &#34;positive&#34;,
+        features are rescaled between zero and one.
+
+    pca_ratio : float, default=1.0
+        Variance ratio parameter for the Principal Component Analysis.
+
+    save_data : bool, default=True
+        If True, will save the computed features in two csv files, one for training and one for
+        testing.
+
+    file_suffix : str, default=&#34;final&#34;
+        Suffix to append to the training and test files if **save_data** is True.
+
+    Returns
+    -------
+    train_df : DataFrame
+        Training dataframe containing the final features and training labels.
+
+    test_df : DataFrame
+        Test dataframe containing the final features.
+
+    Raises
+    ------
+    ValueError
+        If **scaling_method** is not supported.
+    &#34;&#34;&#34;
+    # Read files
+    train_df = pd.read_json(&#34;data/train_set.json&#34;)
+    test_df = pd.read_json(&#34;data/test_set.json&#34;)
+    documents = pd.read_json(&#34;data/documents.json&#34;)
+
+    # Extract target (it will be merged back later)
+    label_var = [&#34;label&#34;]
+    y_train = train_df[label_var]
+    train_df.drop(columns=label_var, inplace=True)
+
+    # Compute regex features (example: &#34;upper_word_count&#34;)
+    create_regex_feat(train_df, test_df=test_df, regex_feat=regex_feat)
+
+    # Compute idf features (example: &#34;ldp_idf&#34; or &#34;kp_cos&#34;)
+    create_idf_feat(
+        seed, train_df, test_df=test_df, idf_feat=idf_feat, more_docs=documents, delta=delta, b=b,
+        k_1=k_1, svd_components=svd_components
+    )
+
+    # Compute tagging features (example: &#34;NN_count&#34;)
+    create_tagging_feat(
+        seed, train_df, test_df=test_df, tag_feat=tag_feat, more_docs=documents, delta=delta, b=b,
+        k_1=k_1, svd_components=svd_components
+    )
+
+    # Compute GLTR features (example: &#34;count_4&#34;)
+    train_df, test_df = create_gltr_feat(train_df, test_df=test_df, gltr_feat=gltr_feat)
+
+    # Compute embeddings features (example: &#34;glove&#34;)
+    create_embed_feat(train_df, test_df=test_df, embed_feat=embed_feat, more_docs=documents)
+
+    # Compute polynomial (example: &#34;char_count word_count&#34;) and interaction (all features)
+    if all_poly_feat:
+        fixed_poly_feat = []
+        poly_feat = list(train_df.columns)
+        poly_feat.remove(&#34;summary&#34;)
+        poly_feat.remove(&#34;document&#34;)
+
+    create_poly_feat(
+        train_df, test_df=test_df, fixed_poly_feat=fixed_poly_feat, poly_feat=poly_feat,
+        poly_degree=poly_degree
+    )
+
+    # Drop excluded features
+    drop_list_feat(train_df, test_df=test_df, excl_feat=excl_feat)
+
+    # Drop correlated features
+    drop_corr_feat(train_df, test_df=test_df, corr_threshold=corr_threshold)
+
+    # Rescale the data
+    if rescale_data:
+
+        if scaling_method == &#34;standard&#34;:
+            sc = StandardScaler()
+        elif scaling_method == &#34;positive&#34;:
+            sc = MinMaxScaler()
+        else:
+            err_msg = f&#34;Unsupported scaling method {scaling_method}.&#34;
+            raise ValueError(err_msg)
+
+        train_df[train_df.columns] = sc.fit_transform(train_df[train_df.columns])
+        test_df[test_df.columns] = sc.transform(test_df[test_df.columns])
+
+    elif not rescale_data and pca_ratio &lt; 1.:
+
+        warn_msg = &#34;Warning: Rescaling data is recommended when performing PCA.&#34;
+        warn_msg += &#34; Set rescale_data to True or pca_ratio to 1.&#34;
+        print(warn_msg)
+
+    # Reduce the dimensionality with PCA
+    train_df, test_df = perform_pca(seed, train_df, test_df=test_df, pca_ratio=pca_ratio)
+
+    # Print some information
+    print(f&#34;\nFinal training shape: {train_df.shape}&#34;)
+    print(f&#34;Features names: {list(train_df.columns)}&#34;)
+
+    # Re-merge the label variable
+    train_df = train_df.merge(y_train, left_index=True, right_index=True, how=&#34;left&#34;)
+
+    # Check features names and change them if needed
+    check_features_names((train_df, test_df))
+
+    # Save the data
+    if save_data:
+        train_df.to_csv(
+            path_or_buf=&#34;data/train_&#34; + file_suffix + &#34;.csv&#34;, header=True, index_label=&#34;id&#34;
+        )
+        test_df.to_csv(
+            path_or_buf=&#34;data/test_&#34; + file_suffix + &#34;.csv&#34;, header=True, index_label=&#34;id&#34;
+        )
+
+    return train_df, test_df
+
+
+if __name__ == &#34;__main__&#34;:
+
+    # Command lines
+    parser_desc = &#34;Main file to prepare data and features.&#34;
+    parser = argparse.ArgumentParser(description=parser_desc)
+
+    # Seed
+    parser.add_argument(
+        &#34;--seed&#34;,
+        default=42,
+        type=int,
+        help=&#34;&#34;&#34;
+             Seed to use everywhere for reproducbility.
+             Default: 42.
+             &#34;&#34;&#34;
+    )
+
+    # Regex features
+    parser.add_argument(
+        &#34;--regex-feat&#34;,
+        default=[
+            &#34;char_count&#34;, &#34;char_ratio&#34;,
+            &#34;word_count&#34;, &#34;word_overlap&#34;, &#34;word_ratio&#34;,
+            &#34;sent_avg&#34;,
+            &#34;upper_word_ratio&#34;,
+            &#34;group_overlap&#34;,
+            &#34;is_last_ponct_count&#34;,
+            &#34;space_before_ponct_count&#34;,
+            &#34;word_3_count&#34;
+        ],
+        nargs=&#34;*&#34;,
+        help=&#34;&#34;&#34;
+             List of all regex features to compute. The name of a regex feature should be of the
+             form &#34;A_B&#34;. A is the name of the regex expression, for example &#34;upper_word&#34;. B is the
+             type of feature we want, it can be &#34;count&#34; for the number of instances, &#34;avg&#34; for the
+             average length of instances, &#34;overlap&#34; for the number of instances both found in the
+             summary and the original document or &#34;ratio&#34; for the ratio between the number of
+             instances found in the summary and the number of instances found in the document.
+             Example: --regex-feat char_count group_overlap.
+             &#34;&#34;&#34;
+    )
+
+    # Tf-idf features
+    parser.add_argument(
+        &#34;--idf-feat&#34;,
+        default=[
+            &#34;n_count&#34;, &#34;n_idf&#34;, &#34;n_lda&#34;
+        ],
+        nargs=&#34;*&#34;,
+        help=&#34;&#34;&#34;
+             List of all tf-idf features names to compute. The name of an idf feature is expected
+             to be of the form &#34;A_B&#34;. A is a sequence of characters for the composition performed
+             in `src.preprocessing.features.tfidf.idf_composition()`. B is the type of feature we
+             want, it can be &#34;count&#34; for the term frequencies, &#34;lda&#34; for the latent dirichlet
+             allocation, &#34;idf&#34; for idf features after a PCA transformation that keeps
+             **svd_components** components from the initial counter features or &#34;cos&#34; for the
+             cosine similarity between the summary and the original document.
+             &#34;&#34;&#34;
+    )
+
+    parser.add_argument(
+        &#34;--idf-d&#34;,
+        default=0.1,
+        type=float,
+        help=&#34;&#34;&#34;
+             Parameter value for &#34;d&#34; composition in tf-idf.
+             Default: 0.1.
+             &#34;&#34;&#34;
+    )
+    parser.add_argument(
+        &#34;--idf-b&#34;,
+        default=0.5,
+        type=float,
+        help=&#34;&#34;&#34;
+             Parameter value for &#34;p&#34; composition in tf-idf.
+             Default: 0.5.
+             &#34;&#34;&#34;
+    )
+    parser.add_argument(
+        &#34;--idf-k&#34;,
+        default=1.,
+        type=float,
+        help=&#34;&#34;&#34;
+             Parameter value for &#34;k&#34; composition in tf-idf.
+             Default: 1.0.
+             &#34;&#34;&#34;
+    )
+    parser.add_argument(
+        &#34;--idf-svd&#34;,
+        default=1,
+        type=int,
+        help=&#34;&#34;&#34;
+             Number of components for the truncated SVD component analysis in tf-idf.
+             Default: 1.
+             &#34;&#34;&#34;
+    )
+
+    # Tagging features
+    parser.add_argument(
+        &#34;--tag-feat&#34;,
+        default=[
+            &#34;DT_count&#34;, &#34;DT_overlap&#34;,
+            &#34;MD_count&#34;,
+            &#34;NN_overlap&#34;,
+            &#34;RB_count&#34;,
+            &#34;$_overlap&#34;,
+            &#34;:_overlap&#34;
+        ],
+        nargs=&#34;*&#34;,
+        help=&#34;&#34;&#34;
+             List of all tagging features to compute. The name of a tagging feature must be of the
+             form &#34;A_B&#34;. A is a tag from all available tags in `nltk` or &#34;tags&#34;. B is the type of
+             feature we want, it can be &#34;count&#34; for the number of instances, &#34;avg&#34; for the average
+             length of instances, &#34;overlap&#34; for the number of instances both found in the summary
+             and the original document, &#34;ratio&#34; for the ratio between the number of instances found
+             in the summary and the number of instances found in the document or &#34;C_D&#34; where C and
+             D are parameters for idf features.
+             &#34;&#34;&#34;
+    )
+
+    # GLTR features
+    parser.add_argument(
+        &#34;--gltr-feat&#34;,
+        default=[
+            &#34;count_4&#34;, &#34;frac_10&#34;
+        ],
+        nargs=&#34;*&#34;,
+        help=&#34;&#34;&#34;
+             List of all GLTR features to compute. The name of a GLTR feature should be of the form
+             &#34;A_B&#34;. A is the name of a topk value computed by GLTR, it can be &#34;count&#34; or &#34;frac&#34;. B
+             is the number of bins to compute the feature.
+             &#34;&#34;&#34;
+    )
+
+    # Embeddings features
+    parser.add_argument(
+        &#34;--embed-feat&#34;,
+        default=[],
+        nargs=&#34;*&#34;,
+        help=&#34;&#34;&#34;
+             List of all embed features to compute. The name of a embed feature should be of the
+             form &#34;A&#34;. A is the name of an embedding from &#34;glove&#34; and &#34;google&#34;, or if any other
+             name, it will be trained.
+             &#34;&#34;&#34;
+    )
+
+    # Polynomial features
+    parser.add_argument(
+        &#34;--fixed-poly-feat&#34;,
+        default=[],
+        nargs=&#34;*&#34;,
+        help=&#34;&#34;&#34;
+             List of specific polynomial features. A fixed polynomial feature must be of the form
+             &#34;A B C&#34;. A, B and C can be features or powers of features, and their product will be
+             computed.
+             Example: --fixed-poly-feat &#34;char_count^2 group_overlap&#34;.
+             &#34;&#34;&#34;
+    )
+
+    parser.add_argument(
+        &#34;--poly-feat&#34;,
+        default=[],
+        nargs=&#34;*&#34;,
+        help=&#34;&#34;&#34;
+             List of polynomial features to compute of which interaction terms will be computed.
+             Example: --poly-feat ldp_idf char_count.
+             &#34;&#34;&#34;
+    )
+    parser.add_argument(
+        &#34;--all-poly-feat&#34;,
+        action=&#34;store_true&#34;,
+        help=&#34;&#34;&#34;
+             Use this option to activate polynomial interaction of all features. Use with
+             caution.
+             Default: Deactivated.
+             &#34;&#34;&#34;
+    )
+    parser.set_defaults(all_poly_feat=False)
+    parser.add_argument(
+        &#34;--poly-degree&#34;,
+        default=2,
+        type=int,
+        help=&#34;&#34;&#34;
+             Define the degree until which products and powers of features are computed. If 1 or
+             less, there will be no polynomial features.
+             Default: 2.
+             &#34;&#34;&#34;
+    )
+
+    # Excluded features
+    parser.add_argument(
+        &#34;--excl-feat&#34;,
+        default=[
+            &#34;document&#34;, &#34;summary&#34;,
+            &#34;n_lda_2&#34;, &#34;n_lda_3&#34;
+        ] + [
+            f&#34;topk_frac_{i}&#34; for i in range(1, 10)
+        ],
+        nargs=&#34;*&#34;,
+        help=&#34;&#34;&#34;
+             List of features names to drop after computation.
+             Example: --excl-feat &#34;char_count^2 group_overlap&#34;.
+             &#34;&#34;&#34;
+    )
+
+    # Correlation threshold
+    parser.add_argument(
+        &#34;--max-correlation&#34;,
+        default=1.,
+        type=float,
+        help=&#34;&#34;&#34;
+             Correlation threshold to select features.
+             Default: 1.0.
+             &#34;&#34;&#34;
+    )
+
+    # Rescale data
+    parser.add_argument(
+        &#34;--rescale-data&#34;,
+        action=&#34;store_true&#34;,
+        help=&#34;&#34;&#34;
+             Use this option to activate rescaling the data sets.
+             Default: Activated.
+             &#34;&#34;&#34;
+    )
+    parser.add_argument(
+        &#34;--no-rescale-data&#34;,
+        action=&#34;store_false&#34;,
+        dest=&#34;rescale-data&#34;,
+        help=&#34;&#34;&#34;
+             Use this option to deactivate rescaling the data sets.
+             Default: Activated.
+             &#34;&#34;&#34;
+    )
+    parser.set_defaults(rescale_data=True)
+
+    parser.add_argument(
+        &#34;--scaling-method&#34;,
+        default=&#34;standard&#34;,
+        type=str,
+        help=&#34;&#34;&#34;
+             If &#34;standard&#34;, features are rescaled with zero mean and unit variance. If &#34;positive&#34;,
+             features are rescaled between zero and one.
+             Default: &#34;standard&#34;.
+             &#34;&#34;&#34;
+    )
+
+    # PCA ratio
+    parser.add_argument(
+        &#34;--pca-ratio&#34;,
+        default=1.,
+        type=float,
+        help=&#34;&#34;&#34;
+             Variance ratio parameter for the Principal Component Analysis.
+             Default: 1.0.
+             &#34;&#34;&#34;
+    )
+
+    # Save data
+    parser.add_argument(
+        &#34;--save-data&#34;,
+        action=&#34;store_true&#34;,
+        help=&#34;&#34;&#34;
+             Use this option to activate saving the data sets.
+             Default: Activated.
+             &#34;&#34;&#34;
+    )
+    parser.add_argument(
+        &#34;--no-save-data&#34;,
+        action=&#34;store_false&#34;,
+        dest=&#34;save-data&#34;,
+        help=&#34;&#34;&#34;
+             Use this option to deactivate saving the data sets.
+             Default: Activated.
+             &#34;&#34;&#34;
+    )
+    parser.set_defaults(save_data=True)
+
+    parser.add_argument(
+        &#34;--file-suffix&#34;,
+        default=&#34;final&#34;,
+        type=str,
+        help=&#34;&#34;&#34;
+             Suffix to append to the training and test files if **save_data** is True.
+             Default: &#34;final&#34;.
+             &#34;&#34;&#34;
+    )
+
+    # End of command lines
+    args = parser.parse_args()
+
+    create_features(
+        seed=args.seed,
+        regex_feat=args.regex_feat,
+        idf_feat=args.idf_feat,
+        delta=args.idf_d,
+        b=args.idf_b,
+        k_1=args.idf_k,
+        svd_components=args.idf_svd,
+        tag_feat=args.tag_feat,
+        gltr_feat=args.gltr_feat,
+        embed_feat=args.embed_feat,
+        fixed_poly_feat=args.fixed_poly_feat,
+        poly_feat=args.poly_feat,
+        all_poly_feat=args.all_poly_feat,
+        poly_degree=args.poly_degree,
+        excl_feat=args.excl_feat,
+        corr_threshold=float_zero_one(args.max_correlation),
+        rescale_data=args.rescale_data,
+        scaling_method=args.scaling_method,
+        pca_ratio=float_zero_one(args.save_data),
+        save_data=args.save_data,
+        file_suffix=args.file_suffix
+    )</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="src.data_preparation.create_features"><code class="name flex">
+<span>def <span class="ident">create_features</span></span>(<span>seed: int = 42, regex_feat: Optional[List[str]] = None, idf_feat: Optional[List[str]] = None, delta: float = 0.1, b: float = 0.5, k_1: float = 1.0, svd_components: int = 1, tag_feat: Optional[List[str]] = None, gltr_feat: Optional[List[str]] = None, embed_feat: Optional[List[str]] = None, fixed_poly_feat: Optional[List[str]] = None, poly_feat: Optional[List[str]] = None, all_poly_feat: bool = False, poly_degree: int = 2, excl_feat: Optional[List[str]] = None, corr_threshold: float = 1.0, rescale_data: bool = True, scaling_method: str = 'standard', pca_ratio: float = 1.0, save_data: bool = True, file_suffix: str = 'final') ‑> Tuple[pandas.core.frame.DataFrame, ...]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Retrieve local data files and perform preprocessing operations.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>seed</code></strong> :&ensp;<code>int</code>, default=<code>42</code></dt>
+<dd>Seed to use everywhere for reproducibility.</dd>
+<dt><strong><code>regex_feat</code></strong> :&ensp;<code>optional list</code> of <code>str</code>, default=<code>None</code></dt>
+<dd>List of all regex features to compute. The name of a regex feature should be of the form
+"A_B". A is the name of the regex expression, for example "upper_word". B is the type of
+feature we want, it can be "count" for the number of instances, "avg" for the average
+length of instances, "overlap" for the number of instances both found in the summary and
+the original document or "ratio" for the ratio between the number of instances found in the
+summary and the number of instances found in the document.</dd>
+<dt><strong><code>idf_feat</code></strong> :&ensp;<code>optional list</code> of <code>str</code>, default=<code>None</code></dt>
+<dd>List of all tf-idf features names to compute. The name of an idf feature is expected to be
+of the form "A_B". A is a sequence of characters for the composition performed in
+<code><a title="src.preprocessing.features.tfidf.idf_composition" href="preprocessing/features/tfidf.html#src.preprocessing.features.tfidf.idf_composition">idf_composition()</a></code>. B is the type of feature we want, it
+can be "count" for the term frequencies, "lda" for the latent dirichlet allocation, "idf"
+for idf features after a PCA transformation that keeps <strong>svd_components</strong> components from
+the initial counter features or "cos" for the cosine similarity between the summary and the
+original document.</dd>
+<dt><strong><code>delta</code></strong> :&ensp;<code>float</code>, default=<code>0.1</code></dt>
+<dd>Parameter value for "d" composition in tf-idf.</dd>
+<dt><strong><code>b</code></strong> :&ensp;<code>float</code>, default=<code>0.5</code></dt>
+<dd>Parameter value for "p" composition in tf-idf.</dd>
+<dt><strong><code>k_1</code></strong> :&ensp;<code>float</code>, default=<code>1.0</code></dt>
+<dd>Parameter value for "k" composition in tf-idf.</dd>
+<dt><strong><code>svd_components</code></strong> :&ensp;<code>int</code>, default=<code>1</code></dt>
+<dd>Number of components for the truncated SVD component analysis in tf-idf.</dd>
+<dt><strong><code>tag_feat</code></strong> :&ensp;<code>optional list</code> of <code>str</code>, default=<code>None</code></dt>
+<dd>List of all tagging features to compute. The name of a tagging feature must be of the form
+"A_B". A is a tag from all available tags in <code>nltk</code>. B is the type of feature we want, it
+can be "count" for the number of instances, "avg" for the average length of instances,
+"overlap" for the number of instances both found in the summary and the original document
+or "ratio" for the ratio between the number of instances found in the summary and the
+number of instances found in the document.</dd>
+<dt><strong><code>gltr_feat</code></strong> :&ensp;<code>optional list</code> of <code>str</code>, default=<code>None</code></dt>
+<dd>List of all GLTR features to compute. The name of a GLTR feature should be of the form
+"A_B". A is the name of a topk value computed by GLTR, it can be "count" or "frac". B is
+the number of bins to compute the feature.</dd>
+<dt><strong><code>embed_feat</code></strong> :&ensp;<code>optional list</code> of <code>str</code>, default=<code>None</code></dt>
+<dd>List of all embed features to compute. The name of a embed feature should be of the form
+"A". A is the name of an embedding from "glove" and "google", or if any other name, it
+will be trained.</dd>
+<dt><strong><code>fixed_poly_feat</code></strong> :&ensp;<code>optional list</code> of <code>str</code>, default=<code>None</code></dt>
+<dd>List of specific polynomial features. A fixed polynomial feature must be of the form
+"A B C". A, B and C can be features or powers of features, and their product will be
+computed.</dd>
+<dt><strong><code>poly_feat</code></strong> :&ensp;<code>optional list</code> of <code>str</code>, default=<code>None</code></dt>
+<dd>List of polynomial features to compute of which interaction terms will be computed.</dd>
+<dt><strong><code>all_poly_feat</code></strong> :&ensp;<code>bool</code>, default=<code>False</code></dt>
+<dd>If True, will use all the computed features for polynomial interaction. Use with caution.</dd>
+<dt><strong><code>poly_degree</code></strong> :&ensp;<code>int</code>, default=<code>2</code></dt>
+<dd>Define the degree until which products and powers of features are computed. If 1 or less,
+there will be no polynomial features.</dd>
+<dt><strong><code>excl_feat</code></strong> :&ensp;<code>optional list</code> of <code>str</code>, default=<code>None</code></dt>
+<dd>List of features names to drop.</dd>
+<dt><strong><code>corr_threshold</code></strong> :&ensp;<code>float</code>, default=<code>1.0</code></dt>
+<dd>Correlation threshold to select features.</dd>
+<dt><strong><code>rescale_data</code></strong> :&ensp;<code>bool</code>, default=<code>True</code></dt>
+<dd>If True, will rescale all features with zero mean and unit variance.</dd>
+<dt><strong><code>scaling_method</code></strong> :&ensp;<code>str</code>, default=<code>"standard"</code></dt>
+<dd>If "standard", features are rescaled with zero mean and unit variance. If "positive",
+features are rescaled between zero and one.</dd>
+<dt><strong><code>pca_ratio</code></strong> :&ensp;<code>float</code>, default=<code>1.0</code></dt>
+<dd>Variance ratio parameter for the Principal Component Analysis.</dd>
+<dt><strong><code>save_data</code></strong> :&ensp;<code>bool</code>, default=<code>True</code></dt>
+<dd>If True, will save the computed features in two csv files, one for training and one for
+testing.</dd>
+<dt><strong><code>file_suffix</code></strong> :&ensp;<code>str</code>, default=<code>"final"</code></dt>
+<dd>Suffix to append to the training and test files if <strong>save_data</strong> is True.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>train_df</code></strong> :&ensp;<code>DataFrame</code></dt>
+<dd>Training dataframe containing the final features and training labels.</dd>
+<dt><strong><code>test_df</code></strong> :&ensp;<code>DataFrame</code></dt>
+<dd>Test dataframe containing the final features.</dd>
+</dl>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>ValueError</code></dt>
+<dd>If <strong>scaling_method</strong> is not supported.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def create_features(
+    seed: int = 42,
+    regex_feat: Optional[List[str]] = None,
+    idf_feat: Optional[List[str]] = None,
+    delta: float = 0.1,
+    b: float = 0.5,
+    k_1: float = 1.,
+    svd_components: int = 1,
+    tag_feat: Optional[List[str]] = None,
+    gltr_feat: Optional[List[str]] = None,
+    embed_feat: Optional[List[str]] = None,
+    fixed_poly_feat: Optional[List[str]] = None,
+    poly_feat: Optional[List[str]] = None,
+    all_poly_feat: bool = False,
+    poly_degree: int = 2,
+    excl_feat: Optional[List[str]] = None,
+    corr_threshold: float = 1.,
+    rescale_data: bool = True,
+    scaling_method: str = &#34;standard&#34;,
+    pca_ratio: float = 1.,
+    save_data: bool = True,
+    file_suffix: str = &#34;final&#34;
+) -&gt; Tuple[DataFrame, ...]:
+    &#34;&#34;&#34;Retrieve local data files and perform preprocessing operations.
+
+    Parameters
+    ----------
+    seed : int, default=42
+        Seed to use everywhere for reproducibility.
+
+    regex_feat : optional list of str, default=None
+        List of all regex features to compute. The name of a regex feature should be of the form
+        &#34;A_B&#34;. A is the name of the regex expression, for example &#34;upper_word&#34;. B is the type of
+        feature we want, it can be &#34;count&#34; for the number of instances, &#34;avg&#34; for the average
+        length of instances, &#34;overlap&#34; for the number of instances both found in the summary and
+        the original document or &#34;ratio&#34; for the ratio between the number of instances found in the
+        summary and the number of instances found in the document.
+
+    idf_feat : optional list of str, default=None
+        List of all tf-idf features names to compute. The name of an idf feature is expected to be
+        of the form &#34;A_B&#34;. A is a sequence of characters for the composition performed in
+        `src.preprocessing.features.tfidf.idf_composition()`. B is the type of feature we want, it
+        can be &#34;count&#34; for the term frequencies, &#34;lda&#34; for the latent dirichlet allocation, &#34;idf&#34;
+        for idf features after a PCA transformation that keeps **svd_components** components from
+        the initial counter features or &#34;cos&#34; for the cosine similarity between the summary and the
+        original document.
+
+    delta : float, default=0.1
+        Parameter value for &#34;d&#34; composition in tf-idf.
+
+    b : float, default=0.5
+        Parameter value for &#34;p&#34; composition in tf-idf.
+
+    k_1 : float, default=1.0
+        Parameter value for &#34;k&#34; composition in tf-idf.
+
+    svd_components : int, default=1
+        Number of components for the truncated SVD component analysis in tf-idf.
+
+    tag_feat : optional list of str, default=None
+        List of all tagging features to compute. The name of a tagging feature must be of the form
+        &#34;A_B&#34;. A is a tag from all available tags in `nltk`. B is the type of feature we want, it
+        can be &#34;count&#34; for the number of instances, &#34;avg&#34; for the average length of instances,
+        &#34;overlap&#34; for the number of instances both found in the summary and the original document
+        or &#34;ratio&#34; for the ratio between the number of instances found in the summary and the
+        number of instances found in the document.
+
+    gltr_feat : optional list of str, default=None
+        List of all GLTR features to compute. The name of a GLTR feature should be of the form
+        &#34;A_B&#34;. A is the name of a topk value computed by GLTR, it can be &#34;count&#34; or &#34;frac&#34;. B is
+        the number of bins to compute the feature.
+
+    embed_feat : optional list of str, default=None
+        List of all embed features to compute. The name of a embed feature should be of the form
+        &#34;A&#34;. A is the name of an embedding from &#34;glove&#34; and &#34;google&#34;, or if any other name, it
+        will be trained.
+
+    fixed_poly_feat : optional list of str, default=None
+        List of specific polynomial features. A fixed polynomial feature must be of the form
+        &#34;A B C&#34;. A, B and C can be features or powers of features, and their product will be
+        computed.
+
+    poly_feat : optional list of str, default=None
+        List of polynomial features to compute of which interaction terms will be computed.
+
+    all_poly_feat : bool, default=False
+        If True, will use all the computed features for polynomial interaction. Use with caution.
+
+    poly_degree : int, default=2
+        Define the degree until which products and powers of features are computed. If 1 or less,
+        there will be no polynomial features.
+
+    excl_feat : optional list of str, default=None
+        List of features names to drop.
+
+    corr_threshold : float, default=1.0
+        Correlation threshold to select features.
+
+    rescale_data : bool, default=True
+        If True, will rescale all features with zero mean and unit variance.
+
+    scaling_method : str, default=&#34;standard&#34;
+        If &#34;standard&#34;, features are rescaled with zero mean and unit variance. If &#34;positive&#34;,
+        features are rescaled between zero and one.
+
+    pca_ratio : float, default=1.0
+        Variance ratio parameter for the Principal Component Analysis.
+
+    save_data : bool, default=True
+        If True, will save the computed features in two csv files, one for training and one for
+        testing.
+
+    file_suffix : str, default=&#34;final&#34;
+        Suffix to append to the training and test files if **save_data** is True.
+
+    Returns
+    -------
+    train_df : DataFrame
+        Training dataframe containing the final features and training labels.
+
+    test_df : DataFrame
+        Test dataframe containing the final features.
+
+    Raises
+    ------
+    ValueError
+        If **scaling_method** is not supported.
+    &#34;&#34;&#34;
+    # Read files
+    train_df = pd.read_json(&#34;data/train_set.json&#34;)
+    test_df = pd.read_json(&#34;data/test_set.json&#34;)
+    documents = pd.read_json(&#34;data/documents.json&#34;)
+
+    # Extract target (it will be merged back later)
+    label_var = [&#34;label&#34;]
+    y_train = train_df[label_var]
+    train_df.drop(columns=label_var, inplace=True)
+
+    # Compute regex features (example: &#34;upper_word_count&#34;)
+    create_regex_feat(train_df, test_df=test_df, regex_feat=regex_feat)
+
+    # Compute idf features (example: &#34;ldp_idf&#34; or &#34;kp_cos&#34;)
+    create_idf_feat(
+        seed, train_df, test_df=test_df, idf_feat=idf_feat, more_docs=documents, delta=delta, b=b,
+        k_1=k_1, svd_components=svd_components
+    )
+
+    # Compute tagging features (example: &#34;NN_count&#34;)
+    create_tagging_feat(
+        seed, train_df, test_df=test_df, tag_feat=tag_feat, more_docs=documents, delta=delta, b=b,
+        k_1=k_1, svd_components=svd_components
+    )
+
+    # Compute GLTR features (example: &#34;count_4&#34;)
+    train_df, test_df = create_gltr_feat(train_df, test_df=test_df, gltr_feat=gltr_feat)
+
+    # Compute embeddings features (example: &#34;glove&#34;)
+    create_embed_feat(train_df, test_df=test_df, embed_feat=embed_feat, more_docs=documents)
+
+    # Compute polynomial (example: &#34;char_count word_count&#34;) and interaction (all features)
+    if all_poly_feat:
+        fixed_poly_feat = []
+        poly_feat = list(train_df.columns)
+        poly_feat.remove(&#34;summary&#34;)
+        poly_feat.remove(&#34;document&#34;)
+
+    create_poly_feat(
+        train_df, test_df=test_df, fixed_poly_feat=fixed_poly_feat, poly_feat=poly_feat,
+        poly_degree=poly_degree
+    )
+
+    # Drop excluded features
+    drop_list_feat(train_df, test_df=test_df, excl_feat=excl_feat)
+
+    # Drop correlated features
+    drop_corr_feat(train_df, test_df=test_df, corr_threshold=corr_threshold)
+
+    # Rescale the data
+    if rescale_data:
+
+        if scaling_method == &#34;standard&#34;:
+            sc = StandardScaler()
+        elif scaling_method == &#34;positive&#34;:
+            sc = MinMaxScaler()
+        else:
+            err_msg = f&#34;Unsupported scaling method {scaling_method}.&#34;
+            raise ValueError(err_msg)
+
+        train_df[train_df.columns] = sc.fit_transform(train_df[train_df.columns])
+        test_df[test_df.columns] = sc.transform(test_df[test_df.columns])
+
+    elif not rescale_data and pca_ratio &lt; 1.:
+
+        warn_msg = &#34;Warning: Rescaling data is recommended when performing PCA.&#34;
+        warn_msg += &#34; Set rescale_data to True or pca_ratio to 1.&#34;
+        print(warn_msg)
+
+    # Reduce the dimensionality with PCA
+    train_df, test_df = perform_pca(seed, train_df, test_df=test_df, pca_ratio=pca_ratio)
+
+    # Print some information
+    print(f&#34;\nFinal training shape: {train_df.shape}&#34;)
+    print(f&#34;Features names: {list(train_df.columns)}&#34;)
+
+    # Re-merge the label variable
+    train_df = train_df.merge(y_train, left_index=True, right_index=True, how=&#34;left&#34;)
+
+    # Check features names and change them if needed
+    check_features_names((train_df, test_df))
+
+    # Save the data
+    if save_data:
+        train_df.to_csv(
+            path_or_buf=&#34;data/train_&#34; + file_suffix + &#34;.csv&#34;, header=True, index_label=&#34;id&#34;
+        )
+        test_df.to_csv(
+            path_or_buf=&#34;data/test_&#34; + file_suffix + &#34;.csv&#34;, header=True, index_label=&#34;id&#34;
+        )
+
+    return train_df, test_df</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="src" href="index.html">src</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="src.data_preparation.create_features" href="#src.data_preparation.create_features">create_features</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>
